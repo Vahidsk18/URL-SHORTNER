@@ -34,5 +34,7 @@ app.use('/url', urlRoute) // url shortener
 app.use('/user', userRoute) // user routes
 
 
-const PORT = process.env.PORT;
-app.listen(PORT)
+const PORT = process.env.PORT || 8000;
+app.listen(PORT,()=>{
+    console.log(`Server running at PORT ${PORT}`);
+})
