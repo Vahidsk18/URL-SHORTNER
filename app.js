@@ -24,7 +24,7 @@ app.set('view engine', 'ejs')
 app.set('views', path.resolve('./views'))
 
 //DBconnection
-const MONGO_URL = process.env.MONGO_URLL;
+const MONGO_URL = process.env.MONGO_ATLAS;
 connectionDB(MONGO_URL)
 
 
