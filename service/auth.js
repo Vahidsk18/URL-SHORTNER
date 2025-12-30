@@ -19,7 +19,7 @@ const jwt = require('jsonwebtoken')
 
 // stateless auth -jwt
 
-const secret = "@vsk&sl$!"
+const secret = process.env.JWT_SECRET
 function setUser(user) {
     // console.log("scret", user, secret);
     return jwt.sign({

@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 const express = require('express')
 const path = require('path')
 const cookieParser = require('cookie-parser')
@@ -22,7 +24,7 @@ app.set('view engine', 'ejs')
 app.set('views', path.resolve('./views'))
 
 //DBconnection
-const MONGO_URL = 'mongodb://127.0.0.1:27017/url-shortner';
+const MONGO_URL = process.env.MONGO_URLL;
 connectionDB(MONGO_URL)
 
 
@@ -32,5 +34,5 @@ app.use('/url', urlRoute) // url shortener
 app.use('/user', userRoute) // user routes
 
 
-
-app.listen(8000)
+const PORT = process.env.PORT;
+app.listen(PORT)
