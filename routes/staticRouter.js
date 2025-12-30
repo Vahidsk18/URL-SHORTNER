@@ -21,16 +21,18 @@ router.get('/', restrictTo(["NORMAL", "ADMIN"]), async (req, res) => {
 
         return res.render("admin", {
             user: req.loggedInUser,
-            urls: allurls
+            urls: allurls,
+            baseUrl: process.env.BASE_URL || `${req.protocol}://${req.get("host")}`,
         });
     } else {
         allurls = await URL.find({ createdBy: req.loggedInUser._id });
     }
-    if (!req.loggedInUser) return res.send("Login PLZZ");
+    if (!req.loggedInUser) return res.redirect('login');
 
     return res.render('url', {
         urls: allurls,
         user: req.loggedInUser,
+        baseUrl: process.env.BASE_URL || `${req.protocol}://${req.get("host")}`,
     })
 })
 

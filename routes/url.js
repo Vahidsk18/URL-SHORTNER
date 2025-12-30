@@ -6,6 +6,5 @@ router.post('/',handleUrlCreation)
 
 router.get('/:shortid', handleRedirectUrl)
 
-router.get('/analysis/:shortid', handleGetAnalysisUrl)
 
 module.exports = router
