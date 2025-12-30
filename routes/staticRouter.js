@@ -1,7 +1,7 @@
 const express = require('express')
 const URL = require('../models/url')
 const router = express.Router()
-const { restrictTo } = require('../middleware/auth')
+const { restrictTo, noCache } = require('../middleware/auth')
 
 
 // router.get('/admin/urls', restrictTo(["ADMIN"]), async (req, res) => {
@@ -11,7 +11,7 @@ const { restrictTo } = require('../middleware/auth')
 // })
 
 
-router.get('/', restrictTo(["NORMAL", "ADMIN"]), async (req, res) => {
+router.get('/', restrictTo(["NORMAL", "ADMIN"]), noCache, async (req, res) => {
 
     let allurls;
     if (req.loggedInUser.role === "ADMIN") {
