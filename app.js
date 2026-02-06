@@ -21,6 +21,8 @@ app.use(checkForAuthentication)
 // ejs
 app.set('view engine', 'ejs')
 app.set('views', path.resolve('./views'))
+app.set('views', path.join(__dirname, 'views'))
+
 
 // DB
 connectionDB(process.env.MONGO_ATLAS)
