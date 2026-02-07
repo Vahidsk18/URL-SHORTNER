@@ -22,8 +22,12 @@ async function handleUserLogin(req, res) {
 
     const token = setUser(result)
     // console.log("ttt",token);
-    res.cookie("uid", token)
-    return res.redirect('/');
+    res.cookie("uid", token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "lax",
+    })
+    return res.redirect('/')
 }
 
 function userLogout(req, res) {

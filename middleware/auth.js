@@ -2,18 +2,22 @@ const { getUser } = require('../service/auth');
 
 //global middleware
 async function checkForAuthentication(req, res, next) {
-    const userUid = req.cookies.uid;
-    // console.log("cookie", userUid)
+    try {
+        const userUid = req.cookies?.uid
 
-    if (!userUid) {
-        req.loggedInUser = null;
-        return next();
+        if (!userUid) {
+            req.loggedInUser = null
+            return next()
+        }
+
+        const user = getUser(userUid) // may throw
+        req.loggedInUser = user || null
+        return next()
+    } catch (err) {
+        console.error('Auth middleware error:', err.message)
+        req.loggedInUser = null
+        return next()
     }
-
-    const user = getUser(userUid);
-    // console.log("getuser", user)
-    req.loggedInUser = user || null
-    return next();
 }
 
 
