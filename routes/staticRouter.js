@@ -12,6 +12,7 @@ const { restrictTo, noCache } = require('../middleware/auth')
 
 
 router.get('/', restrictTo(["NORMAL", "ADMIN"]), noCache, async (req, res) => {
+    if (!req.loggedInUser) return res.redirect('login');
 
     let allurls;
     if (req.loggedInUser.role === "ADMIN") {
@@ -22,17 +23,18 @@ router.get('/', restrictTo(["NORMAL", "ADMIN"]), noCache, async (req, res) => {
         return res.render("admin", {
             user: req.loggedInUser,
             urls: allurls,
-            baseUrl: process.env.BASE_URL || `${req.protocol}://${req.get("host")}`,
+            baseUrl: process.env.BASE_URL ||
+                `${req.headers['x-forwarded-proto'] || req.protocol}://${req.get('host')}`
         });
     } else {
         allurls = await URL.find({ createdBy: req.loggedInUser._id });
     }
-    if (!req.loggedInUser) return res.redirect('login');
 
     return res.render('url', {
         urls: allurls,
         user: req.loggedInUser,
-        baseUrl: process.env.BASE_URL || `${req.protocol}://${req.get("host")}`,
+        baseUrl: process.env.BASE_URL ||
+            `${req.headers['x-forwarded-proto'] || req.protocol}://${req.get('host')}`
     })
 })
 
