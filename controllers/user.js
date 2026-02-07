@@ -1,5 +1,4 @@
 const User = require('../models/user')
-const { v4: uuidv4 } = require('uuid')
 const { setUser } = require('../service/auth')
 
 async function handleUserCreation(req, res) {
