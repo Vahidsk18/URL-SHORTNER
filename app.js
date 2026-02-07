@@ -32,5 +32,7 @@ app.use('/', staticRoute)
 app.use('/url', urlRoute)
 app.use('/user', userRoute)
 
-// ONLY export
-module.exports = app
+let PORT=process.env.PORT || 8000
+app.listen(PORT,()=>{
+    console.log(`running,${PORT}`);
+})
